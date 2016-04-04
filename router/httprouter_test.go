@@ -7,13 +7,12 @@ import (
 )
 
 var httprouterRouter = httprouter.New()
+var OK bool
 var _ = setupTest(func(r route) {
 	httprouterRouter.GET(r.URLPattern, func(_ http.ResponseWriter, _ *http.Request, p httprouter.Params) {
-		//for i, value := range r.ParametersName {
-		//if p.ByName(value) != r.ParametersValue[i] {
-		//	panic(fmt.Errorf("%s	%s	%s", value, p.ByName(value), r.ParametersValue[i]))
-		//}
-		//}
+		for i, value := range r.ParametersName {
+			OK = p.ByName(value) != r.ParametersValue[i]
+		}
 	})
 })
 
